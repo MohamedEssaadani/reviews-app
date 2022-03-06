@@ -3,10 +3,6 @@ import React, { useState } from "react";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import Home from "./screens/home";
-import About from "./screens/about";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DrawerNavigator from "./routes/drawer";
 
 // load fonts

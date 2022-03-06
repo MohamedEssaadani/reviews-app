@@ -10,6 +10,7 @@ import {
 import Card from "../styles/card";
 import { globalStyles } from "../styles/global";
 import { MaterialIcons } from "@expo/vector-icons";
+import AddReviewForm from "./addReviewForm";
 
 export default function Home({ navigation }) {
   // toggle modal
@@ -42,20 +43,25 @@ export default function Home({ navigation }) {
     <View style={globalStyles.container}>
       {/* add review modal */}
       <Modal visible={openModal} animationType="slide">
-        {/* close modal icon */}
-        <MaterialIcons
-          name="close"
-          size={24}
-          onPress={() => setOpenModal(false)}
-        />
-
         <View style={styles.modalContent}>
-          <Text>Add Modal</Text>
+          {/* close modal icon */}
+          <MaterialIcons
+            name="close"
+            size={24}
+            style={{ ...styles.modalToggle, ...styles.modalClose }}
+            onPress={() => setOpenModal(false)}
+          />
+          <AddReviewForm />
         </View>
       </Modal>
 
       {/* Show Modal Icon */}
-      <MaterialIcons name="add" size={24} onPress={() => setOpenModal(true)} />
+      <MaterialIcons
+        name="add"
+        size={24}
+        style={styles.modalToggle}
+        onPress={() => setOpenModal(true)}
+      />
 
       <FlatList
         data={reviews}
@@ -74,5 +80,19 @@ export default function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  modalContent: {},
+  modalContent: {
+    flex: 1,
+  },
+  modalToggle: {
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: "#f2f2f2",
+    padding: 10,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+  modalClose: {
+    marginTop: 20,
+    marginBottom: 0,
+  },
 });
