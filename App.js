@@ -1,8 +1,15 @@
+import "react-native-gesture-handler";
 import React, { useState } from "react";
-import Home from "./screens/home";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import Home from "./screens/home";
+import About from "./screens/about";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import DrawerNavigator from "./routes/drawer";
 
+// load fonts
 const getFonts = () =>
   Font.loadAsync({
     "nunito-regular": require("./assets/fonts/Nunito-Regular.ttf"),
@@ -10,13 +17,23 @@ const getFonts = () =>
   });
 
 export default function App() {
+  // to check if the fonts is loaded or not
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
+  // render the Screens only if the fonts are loaded
   if (fontsLoaded) {
-    return <Home />;
+    return (
+      <NavigationContainer>
+        <DrawerNavigator />
+      </NavigationContainer>
+    );
   } else {
     return (
-      <AppLoading startAsync={getFonts} onFinish={() => setFontsLoaded(true)} />
+      <AppLoading
+        startAsync={() => getFonts()}
+        onFinish={() => setFontsLoaded(true)}
+        onError={console.warn}
+      />
     );
   }
 }
