@@ -6,6 +6,8 @@ import {
   Text,
   Modal,
   StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import Card from "../styles/card";
 import { globalStyles } from "../styles/global";
@@ -39,20 +41,32 @@ export default function Home({ navigation }) {
     },
   ]);
 
+  // add review
+  const addReview = (review) => {
+    // set review key
+    review.key = Math.random().toString();
+    // add review to the review array
+    setReviews((currentReviews) => [review, ...currentReviews]);
+    // close the modal
+    setOpenModal(false);
+  };
+
   return (
     <View style={globalStyles.container}>
       {/* add review modal */}
       <Modal visible={openModal} animationType="slide">
-        <View style={styles.modalContent}>
-          {/* close modal icon */}
-          <MaterialIcons
-            name="close"
-            size={24}
-            style={{ ...styles.modalToggle, ...styles.modalClose }}
-            onPress={() => setOpenModal(false)}
-          />
-          <AddReviewForm />
-        </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.modalContent}>
+            {/* close modal icon */}
+            <MaterialIcons
+              name="close"
+              size={24}
+              style={{ ...styles.modalToggle, ...styles.modalClose }}
+              onPress={() => setOpenModal(false)}
+            />
+            <AddReviewForm addReview={addReview} />
+          </View>
+        </TouchableWithoutFeedback>
       </Modal>
 
       {/* Show Modal Icon */}
